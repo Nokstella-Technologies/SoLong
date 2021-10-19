@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 13:53:47 by llima-ce          #+#    #+#              #
-#    Updated: 2021/10/18 23:19:06 by llima-ce         ###   ########.fr        #
+#    Updated: 2021/10/19 00:01:13 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,7 @@ OBJS_OTHERS = $(SRCS_OTHERS:.c=.o)
 
 OBJS_PRINTF = $(SRCS_PRINTF:.c=.o)
 
-all: copy $(NAME) 
+all: copy others 
 	make clean
 
 $(NAME): $(OBJS) 
@@ -109,10 +109,10 @@ others: copy $(OBJS) $(OBJS_BONUS) $(OBJS_OTHERS) $(OBJS_PRINTF)
 	make clean
 
 $(OBJS_OTHERS): $(SRCS_OTHERS)
-	$(CC) -I ./Others -c $(CFLAGS) $(SRCS_OTHERS)
+	$(CC) -I ./others -c $(CFLAGS) $(SRCS_OTHERS)
 
 $(OBJS_PRINTF):$(SRCS_PRINTF)
-	$(CC) -I ./Others/printf -c $(CFLAGS) $(SRCS_PRINTF)
+	$(CC) -I ./others/printf -c $(CFLAGS) $(SRCS_PRINTF)
 
 
 clean:

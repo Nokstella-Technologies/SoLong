@@ -13,8 +13,9 @@
 #ifndef SOLONG_H
 # define SOLONG_H
 
-#include "minilibx/mlx.h"
-#include "libft/libft.h"
+# include <fcntl.h>
+# include "minilibx/mlx.h"
+# include "libft/libft.h"
 
 # define KEY_ESC	65307
 # define KEY_A		97
@@ -22,6 +23,11 @@
 # define KEY_S		115
 # define KEY_W		119
 
+typedef struct s_map{
+	int		fd;
+	int		width;
+	int		height;
+}			t_map;
 
 typedef struct	s_data_img {
 	void	*img;
