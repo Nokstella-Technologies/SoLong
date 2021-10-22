@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:39 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/10/22 19:58:44 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/22 20:00:19 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	player_move(t_module *module, int l)
 	if(l == KEY_D)
 		tmp->content[module->player->player_x]
 }
-"1111111" -> "10000P001"
+
 
 int key_hook(int keycode, t_module *module)
 {	
