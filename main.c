@@ -138,41 +138,89 @@ void destroy_map(t_map *map)
 	free(map->map);
 }
 
-int	load_sprites(t_map *map, t_vars *vars, t_data_img **sprite)
+int	choose_sprite(char *line, t_vars *vars, t_data_img **sprite, t_map *map)
+{
+	if (line[map->col] == '0')
+		mlx_put_image_to_window(vars->mlx, vars->win, sprite[0]->img,
+				SPRITE_SIZE * map->col , SPRITE_SIZE * map->row);
+	else if (line[map->col] == '1')
+		mlx_put_image_to_window(vars->mlx, vars->win, sprite[1]->img,
+				SPRITE_SIZE * map->col , SPRITE_SIZE * map->row);
+	else if (line[map->col] == 'C')
+		mlx_put_image_to_window(vars->mlx, vars->win, sprite[2]->img,
+				SPRITE_SIZE * map->col , SPRITE_SIZE * map->row);
+	else if (line[map->col] == 'E')
+		mlx_put_image_to_window(vars->mlx, vars->win, sprite[3]->img,
+				SPRITE_SIZE * map->col , SPRITE_SIZE * map->row);
+	else if (line[map->col] == 'P')
+		mlx_put_image_to_window(vars->mlx, vars->win, sprite[4]->img,
+				SPRITE_SIZE * map->col , SPRITE_SIZE * map->row);
+	else if (line[map->col] == 'J')
+		mlx_put_image_to_window(vars->mlx, vars->win, sprite[5]->img,
+				SPRITE_SIZE * map->col ,SPRITE_SIZE * map->col);
+	else
+		return (1);
+	return (0);
+}
+
+int	print_map(t_map *map, t_vars *vars, t_data_img **sprite)
+{
+	t_list	*tmp;
+
+	tmp = map->map[0];
+	map->row = 0;
+	while(map->row < map->height)
+	{
+		printf("<%s = %s>\n",map->map[0]->content , tmp->content);
+		map->col = 0;
+		while(map->col < map->width)
+		{
+			if(choose_sprite(tmp->content, vars, sprite, map) == 1)
+				return (1);
+			map->col++;
+		}
+		tmp = tmp->next;
+		map->row++;
+	}
+	return(0);
+}
+
+int	load_sprites(t_vars *vars, t_data_img **sprite)
 {
 	int	a;
 
 	a = 0;
-	while(a < 6)
+	while (a < 6)
 	{
-		ft_printf("<%s, %p>\n", g_sprite_path[a], vars->mlx);
+		sprite[a] = malloc(sizeof(t_data_img));
 		sprite[a]->img = mlx_xpm_file_to_image(vars->mlx, g_sprite_path[a],
 				&sprite[a]->img_width, &sprite[a]->img_height);
-		// if(sprite[a]->img == NULL)
-		// 	return(1);
+		if(sprite[a]->img == NULL)
+			return (1);
 		a++;
 	}
-	return(0);
+	return (0);
 }
 
 int	start_game(t_map *map, t_vars *vars)
 {
 	t_data_img	**sprites;
 
+	vars = malloc(sizeof(t_vars));
 	sprites = malloc(7 * sizeof(t_data_img *));
-	sprites[6] = NULL;
-	if(sprites == NULL)
-		return(1);
+	if (sprites == NULL || vars == NULL)
+		return (1);
 	vars->mlx = mlx_init();
-	if(vars->mlx == NULL)
-		return(1);
+	if (vars->mlx == NULL)
+		return (1);
 	vars->win = mlx_new_window(vars->mlx, map->width * SPRITE_SIZE, 
 								map->height * SPRITE_SIZE, "so_long");
-	if(vars->win == NULL)
-		return(1);
-	if(load_sprites(map, vars, sprites) == 1)
-		return(1);
-	mlx_put_image_to_window(vars->mlx, vars->win, sprites[0]->img, 0 , 0);
+	if (vars->win == NULL)
+		return (1);
+	if (load_sprites(vars, sprites) == 1)
+		return (1);
+	if (print_map(map, vars, sprites) == 1)
+		return (1);
 	mlx_loop(vars->mlx);
 	return(0);
 }
@@ -215,3 +263,31 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
+
+// int main()
+// {
+// 	t_data_img	**test3;
+// 	t_map		map;
+// 	t_vars		*vars;
+// 	// void		*mlx;
+	
+// 	vars = malloc(1 * sizeof(t_vars));
+// 	test3 = malloc(7 * sizeof(t_data_img *));
+// 	test3[0] = malloc(1 * sizeof(t_data_img));
+// 	test3[1] = malloc(1 * sizeof(t_data_img));
+// 	vars->mlx = mlx_init();
+// 	printf(" ok ok \n\n\n");
+// 	vars->win = mlx_new_window(vars->mlx, 400, 400, "so_long");
+// 	// load_sprites(&map , mlx, test3);
+// 	printf(" ok ok \n\n\n");
+// 	test3[0]->img = mlx_xpm_file_to_image(vars->mlx, g_sprite_path[0], &test3[0]->img_width, &test3[0]->img_height);
+// 	test3[1]->img = mlx_xpm_file_to_image(vars->mlx, g_sprite_path[1], &test3[1]->img_width, &test3[1]->img_height);
+// 	mlx_put_image_to_window(vars->mlx, vars->win, test3[0]->img, 0, 0);
+// 	mlx_put_image_to_window(vars->mlx, vars->win, test3[1]->img, 100, 0);
+// 	mlx_put_image_to_window(vars->mlx, vars->win, test3[1]->img, 200, 0);
+// 	// mlx_mouse_hook(vars.win, key_hook, &vars);
+// 	// if(error = -1)
+// 	// destroy_all(&vars, test, test2);
+// 	mlx_loop(vars->mlx);
+// 	return(0);
+// }

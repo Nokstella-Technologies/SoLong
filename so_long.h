@@ -33,6 +33,8 @@ typedef struct s_map{
 	int		fd;
 	int		width;
 	int		height;
+	int		col;
+	int		row;
 }			t_map;
 
 typedef struct	s_data_img {
