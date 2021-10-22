@@ -16,8 +16,8 @@ CC = clang
 SRC = main.c
 OBJ =(SRC:.c=.o)
 
-all: 
-	$(CC) $(SRC) -g3 -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz 
+all:
+	$(CC) $(SRC) -g3 -Lmlx_Linux -lmlx_Linux -L ./minilibx -Imlx_Linux -L ./libft -lft -lXext -lX11 -lm -lz
 
 # $(OBJ): $(SRC)
 # 	$(CC) -Wall -Wextra -Werror -Imlx_linux -O3 -c $(SRC)
