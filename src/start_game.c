@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_game.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/22 17:47:53 by llima-ce          #+#    #+#             */
+/*   Updated: 2021/10/22 19:45:11 by llima-ce         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
@@ -5,25 +16,40 @@ char *g_sprite_path[6] = {"./assets/sprites/0.xpm", "./assets/sprites/1.xpm",
 "./assets/sprites/C.xpm", "./assets/sprites/E.xpm", "./assets/sprites/P.xpm",
 "./assets/sprites/J.xpm"};
 
+void	position_player(t_module *module)
+{
+	mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[4]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
+	module->player->player_x = module->map->col;
+	module->player->player_y = module->map->row;
+}
+
 int	choose_sprite(char *line, t_module *module)
 {
 	if (line[module->map->col] == '0')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[0]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
-			else if (line[module->map->col] == '1')
+	else if (line[module->map->col] == '1')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[1]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
-			else if (line[module->map->col] == 'C')
+	else if (line[module->map->col] == 'C')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[2]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
-			else if (line[module->map->col] == 'E')
+	else if (line[module->map->col] == 'E')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[3]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
-			else if (line[module->map->col] == 'P')
-		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[4]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
-			else if (line[module->map->col] == 'J')
+	else if (line[module->map->col] == 'P')
+		position_player(module);
+	else if (line[module->map->col] == 'J')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[5]->img, SPRITE_SIZE * module->map->col ,SPRITE_SIZE * module->map->col);
 	else
 		return (1);
 	return (0);
 }
 
+// 	typedef struct s_player{
+// 	int		player_x;
+// 	int		player_y;
+// 	int		player_eye;
+// 	int		player_step;
+// 	int		player_x_old;
+// 	int		player_y_old;
+// }				t_player;
 int	print_map(t_module *module)
 {
 	t_list	*tmp;
@@ -65,8 +91,10 @@ int	load_sprites(t_vars *vars, t_data_img **sprite)
 int	start_game(t_module *module)
 {
 	module->vars = malloc(sizeof(t_vars));
-	module->sprite = malloc(7 * sizeof(t_data_img *));
-	if (module->sprite == NULL || module->vars == NULL)
+	module->player = malloc(sizeof(t_player));
+	module->sprite = malloc(6 * sizeof(t_data_img *));
+	if (module->sprite == NULL || module->vars == NULL
+	|| module->player == NULL)
 		return (error(14, NULL));
 	module->vars->mlx = mlx_init();
 	if (module->vars->mlx == NULL)
@@ -78,6 +106,5 @@ int	start_game(t_module *module)
 		return (1);
 	if (print_map(module) == 1)
 		return (1);
-	mlx_loop(module->vars->mlx);
 	return(0);
 }

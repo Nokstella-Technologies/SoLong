@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2021/10/22 17:16:20 by prafael-         ###   ########.fr        #
+#    Updated: 2021/10/22 18:26:35 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = Solong.a
 CFLAGS = -Wall -Wextra -Werror
 CC = clang
-SRC = so_long.c error.c start_game.c utils.c verify_map.c
+SRC = so_long.c error.c start_game.c utils.c verify_map.c hooks.c
 OBJ = $(SRC:.c=.o)
 
 all:

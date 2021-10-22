@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:43:58 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/22 16:32:09 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/10/22 19:36:44 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,33 @@ typedef struct	s_vars {
 	void	*win;
 }				t_vars;
 
+typedef struct s_player{
+	int		player_x;
+	int		player_y;
+	int		player_eye;
+	int		player_step;
+	int		player_x_old;
+	int		player_y_old;
+}				t_player;
+
 typedef struct	s_module {
 	t_vars		*vars;
 	t_map		*map;
+	t_player	*player;
 	t_data_img	**sprite;
 }				t_module;
+
+
+
+
 
 void	free_ptr(void *ptr);
 
 int		ft_verify_str(char *str, char *ver, int max_search);
 
 void	destroy_map(t_map *map);
+void	destroy_window(t_module *module);
+void	destroy_all(t_module *module);
 
 int		start_game(t_module *module);
 
@@ -64,4 +80,5 @@ int		error(int errnum, char *message);
 
 int		verify_map(char *name_map, t_module *module);
 
+int		hook(t_module *module);
 #endif

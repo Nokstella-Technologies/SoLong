@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:38 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/22 16:24:22 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/10/22 19:26:09 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,28 @@ void	destroy_map(t_map *map)
 {
 	ft_lstclear(map->map, &free_ptr);
 	free(map->map);
+}
+
+void	destroy_window(t_module *module)
+{	
+	int i;
+
+	i = -1;
+	while (i++ < 6)
+	{
+		mlx_destroy_image(module->vars->mlx, module->sprite[i]->img);
+		free(module->sprite[i]);
+	}
+	destroy_map(module->map);
+	mlx_destroy_window(module->vars->mlx, module->vars->win);
+	free(module->vars);
+}
+
+void	destroy_all(t_module *module)
+{
+	destroy_window(module);
+	mlx_loop_end(module->vars->mlx);
+	free(module);
 }
 
 /*
@@ -71,8 +93,3 @@ int	error(int errnum, char *message)
 		perror(strerror(26));
 	return(1);
 }
-
-
-
-
-

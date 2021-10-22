@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:44:25 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/22 17:17:47 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/10/22 17:56:560 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	main(int argc, char **argv)
 			return(1);
 		}
 		else if (start_game(module) == 1)
+			return(1);
+		else if (hook(module) == 1)
 			return(1);
 	}
 	else
