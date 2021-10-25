@@ -23,6 +23,12 @@ void	position_player(t_module *module)
 	module->player->player_y = module->map->row;
 }
 
+void	coin_print(t_module *module)
+{
+	module->coin->amount = module->coin->amount + 1;
+	mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[2]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
+}
+
 int	choose_sprite(char *line, t_module *module)
 {
 	if (line[module->map->col] == '0')
@@ -30,11 +36,14 @@ int	choose_sprite(char *line, t_module *module)
 	else if (line[module->map->col] == '1')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[1]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
 	else if (line[module->map->col] == 'C')
-		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[2]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
+		coin_print(module);
 	else if (line[module->map->col] == 'E')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[3]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
 	else if (line[module->map->col] == 'P')
+	{
+
 		position_player(module);
+	}
 	else if (line[module->map->col] == 'J')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[5]->img, SPRITE_SIZE * module->map->col ,SPRITE_SIZE * module->map->col);
 	else
@@ -53,18 +62,24 @@ int	choose_sprite(char *line, t_module *module)
 int	print_map(t_module *module)
 {
 	t_list	*tmp;
+	char *tmp2;
 
+	printf("ola mundo\n");
 	tmp = module->map->map[0];
 	module->map->row = 0;
 	while(module->map->row < module->map->height)
 	{
+		printf("%s\n", (char *)tmp->content);
 		module->map->col = 0;
 		while(module->map->col < module->map->width)
 		{
+			tmp2 = tmp->content;
+			// printf("%c", tmp2[module->map->col]);
 			if(choose_sprite(tmp->content, module) == 1)
 				return (error(0, "It is not possible to find the sprite!"));
 			module->map->col++;
 		}
+		// printf("\n");
 		tmp = tmp->next;
 		module->map->row++;
 	}
@@ -92,9 +107,10 @@ int	start_game(t_module *module)
 {
 	module->vars = malloc(sizeof(t_vars));
 	module->player = malloc(sizeof(t_player));
+	module->coin = malloc(sizeof(t_coin));
 	module->sprite = malloc(6 * sizeof(t_data_img *));
 	if (module->sprite == NULL || module->vars == NULL
-	|| module->player == NULL)
+	|| module->player == NULL || module->coin == NULL)
 		return (error(14, NULL));
 	module->vars->mlx = mlx_init();
 	if (module->vars->mlx == NULL)

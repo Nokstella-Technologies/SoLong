@@ -12,30 +12,78 @@
 
 #include "so_long.h"
 
-void	player_move(t_module *module, int l)
+int		verify_move(t_module *module, char verify)
 {
-	t_list *tmp;
-
-	module->map->col = 0;
-	tmp = module->map->map[0];
-	module->map->row = 0;
-	while(module->map->row <= module->player->player_y)
+	if(verify == '0')
+		return (0);
+	if(verify == '1')
+		return (1);
+	if(verify == 'C')
 	{
-		tmp = tmp->next;
-		module->map->row++;
+		module->coin->amount_taken = module->coin->amount_taken + 1;
+		return(0);
 	}
-	if(l == KEY_D)
-		tmp->content[module->player->player_x]
+	if(verify == 'E')
+	{
+		if (module->coin->amount != 0)
+			return(1);
+		else
+			return(2);
+	}
+	if(verify == 'J')
+		return (3);
+	else
+		return (2);
 }
 
+void	move_d(t_module *module, int is_player)
+{
+	t_list	*tmp;
+	int		res;
+	char	*tmp_char;
+
+	if(is_player == 1)
+	{
+		module->map->col = 0;
+		tmp = module->map->map[0];
+		module->map->row = 0;
+		while(module->map->row <= module->player->player_y)
+		{
+			tmp = tmp->next;
+			module->map->row++;
+		}
+		tmp_char = (char *)tmp->content;
+		res =verify_move(module, tmp_char[module->player->player_x + 1]);
+		if (res == 0)
+		{
+			module->player->player_step = module->player->player_step + 1;
+			module->player->player_eye = 3;
+			tmp_char[module->player->player_x + 1] = 'P';
+			tmp_char[module->player->player_x] = '0';
+			print_map(module);
+		}
+		else if (res == 1)
+			module->player->player_eye = 3;
+		else if (res == 2)
+		{
+			ft_printf("YOU WIN!\n");
+			// destroy_all(module);
+		}
+		else if (res == 3)
+		{
+			ft_printf("GAME OVER!\n");
+			// destroy_all(module);
+		}
+	}
+}
 
 int key_hook(int keycode, t_module *module)
-{	
+{
 	printf("Hello from key_hook!\n");
 	if(keycode == 113)
 		destroy_all(module);
 	if(keycode == KEY_D)
-		player_move(module, keycode);
+		move_d(module, 1);
 	return(0);
 }
 

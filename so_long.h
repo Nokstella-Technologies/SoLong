@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef SOLONG_H
 # define SOLONG_H
 
@@ -46,6 +45,11 @@ typedef struct	s_vars {
 	void	*win;
 }				t_vars;
 
+typedef struct	s_coin{
+	int		amount;
+	int		amount_taken;
+}				t_coin;
+
 typedef struct s_player{
 	int		player_x;
 	int		player_y;
@@ -59,6 +63,7 @@ typedef struct	s_module {
 	t_vars		*vars;
 	t_map		*map;
 	t_player	*player;
+	t_coin		*coin;
 	t_data_img	**sprite;
 }				t_module;
 
@@ -75,10 +80,14 @@ void	destroy_window(t_module *module);
 void	destroy_all(t_module *module);
 
 int		start_game(t_module *module);
-
+int		print_map(t_module *module);
 int		error(int errnum, char *message);
 
 int		verify_map(char *name_map, t_module *module);
 
 int		hook(t_module *module);
+
+void	position_player(t_module *module);
+
+void	coin_print(t_module *module);
 #endif
