@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:53 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/10/25 16:28:18 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/25 18:10:09 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,17 @@ int	print_map(t_module *module)
 	printf("ola mundo\n");
 	tmp = module->map->map[0];
 	module->map->row = 0;
+	module->coin->amount  = 0;
 	while(module->map->row < module->map->height)
 	{
-		printf("%s\n", (char *)tmp->content);
 		module->map->col = 0;
 		while(module->map->col < module->map->width)
 		{
 			tmp2 = tmp->content;
-			// printf("%c", tmp2[module->map->col]);
 			if(choose_sprite(tmp->content, module) == 1)
 				return (error(0, "It is not possible to find the sprite!"));
 			module->map->col++;
 		}
-		// printf("\n");
 		tmp = tmp->next;
 		module->map->row++;
 	}
