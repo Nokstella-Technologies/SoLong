@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:43:58 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/22 19:36:44 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/25 16:47:41 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,15 @@ typedef struct s_player{
 	int		player_y;
 	int		player_eye;
 	int		player_step;
-	int		player_x_old;
-	int		player_y_old;
 }				t_player;
 
-typedef struct	s_module {
+typedef struct			s_module {
 	t_vars		*vars;
 	t_map		*map;
-	t_player	*player;
+	t_player		*player;
 	t_coin		*coin;
 	t_data_img	**sprite;
-}				t_module;
+}						t_module;
 
 
 

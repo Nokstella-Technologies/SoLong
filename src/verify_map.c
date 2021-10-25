@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:37:11 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/22 17:06:34 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/10/25 16:36:12 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,44 +37,42 @@ int verify_width_map(t_map *map, char *content, int height_now)
 	return (error(0, "Wrong construct of the map this letter is not allowed!"));
 }
 
-int	read_map(t_map *map)
+int	read_map(t_module *module)
 {
 	t_list	*tmp;
 	int		a;
 
-	map->map = malloc(1 * sizeof(t_list *));
-	tmp = malloc(1 * sizeof(t_list));
-	if(map->map == NULL || tmp == NULL)
+	module->map->map = ft_calloc(2 ,sizeof(t_list *));
+	if(module->map->map == NULL)
 		return (error(14, NULL));
-	tmp->content = get_next_line(map->fd);
-	map->width = ft_strlen(tmp->content) - 1;
-	map->map[0] = tmp;
+	tmp = ft_lstnew(get_next_line(module->map->fd));
+	module->map->width = ft_strlen(tmp->content) - 1;
+	module->map->map[0] = tmp;
 	a = 0;
 	while(tmp->content != NULL)
 	{
-		if(verify_width_map(map, (char *) tmp->content, a) == 1)
+		if(verify_width_map(module->map, (char *) tmp->content, a) == 1)
 			return(1);
 		tmp->next = malloc(1 * sizeof(t_list));
 		tmp = tmp->next;
-		tmp->content = get_next_line(map->fd);
+		tmp->content = get_next_line(module->map->fd);
 		a++;
 	}
 	if(a < 4)
 		return (error(0, "Height is too small!"));
-	map->height = a;
+	module->map->height = a;
 	return(0);
 }
 
 int	verify_map(char *name_map, t_module *module)
 {
-	module->map = malloc(sizeof(t_map));
+	module->map = malloc(1 * sizeof(t_map));
 	if(module->map == NULL)
 		return (error(14, NULL));
-	printf("%s \n", name_map);
 	module->map->fd = open(name_map, O_RDONLY);
 	if (module->map->fd == -1)
 		return (error(9, NULL));
-	if(read_map(module->map) == 1)
+	if(read_map(module) == 1)
 		return (1);
 	return (0);
 }

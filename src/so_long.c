@@ -12,8 +12,6 @@
 
 #include "so_long.h"
 
-
-
 // int	key_hook(int keycode, t_vars *vars)
 // {
 // 	if(keycode == KEY_ESC)
@@ -28,8 +26,9 @@ int	main(int argc, char **argv)
 
 	if(argc == 2)
 	{
-		module = malloc(sizeof(t_module));
-
+		module = malloc(1 * sizeof(t_module));
+		if(module == NULL)
+			return(error(14, NULL)); 
 		if (verify_map(argv[1], module) == 1)
 		{
 			destroy_map(module->map);

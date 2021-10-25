@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:53 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/10/22 19:45:11 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/25 16:28:18 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ int	load_sprites(t_vars *vars, t_data_img **sprite)
 
 int	start_game(t_module *module)
 {
-	module->vars = malloc(sizeof(t_vars));
-	module->player = malloc(sizeof(t_player));
-	module->coin = malloc(sizeof(t_coin));
+	module->vars = malloc(1 * sizeof(t_vars));
+	module->player = malloc(1 * sizeof(t_player));
+	module->coin = malloc(1 * sizeof(t_coin));
 	module->sprite = malloc(6 * sizeof(t_data_img *));
 	if (module->sprite == NULL || module->vars == NULL
 	|| module->player == NULL || module->coin == NULL)

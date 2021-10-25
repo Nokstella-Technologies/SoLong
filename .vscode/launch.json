@@ -4,13 +4,40 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "lldb",
-            "request": "launch",
-            "name": "Debug",
-            "program": "${workspaceFolder}/<your program>",
-            "args": [],
-            "cwd": "${workspaceFolder}"
-        }
-    ]
+		{
+			"name": "(gdb) Launch",
+			"type": "lldb",
+			"request": "launch",
+			"program": "${workspaceRoot}/a.out",
+			"args": [
+				"./assets/maps/map_3.ber",
+			],
+			"cwd": "${workspaceRoot}",
+			"preLaunchTask": "C/C++: gcc build active file",
+			"miDebuggerPath": "/usr/bin/lldb"
+		},
+		{
+			"name": "gdb",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceRoot}/a.out",
+			"args": [
+				"./assets/maps/map_3.ber",
+			],
+			"stopAtEntry": false,
+			"cwd": "${workspaceRoot}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "gdb",
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			],
+			"preLaunchTask": "C/C++: gcc build active file",
+			"miDebuggerPath": "/usr/bin/gdb"
+		}
+	]
 }
