@@ -36,28 +36,21 @@ int		verify_move(t_module *module, char verify)
 		return (2);
 }
 
-void	move_d(t_module *module, int is_player)
+void	move_d(t_module *module, int x, int y, int is_player)
 {
-	t_list	*tmp;
 	int		res;
 
 	if(is_player == 1)
 	{
-		module->map->col = 0;
-		tmp = module->map->map[0];
-		module->map->row = 0;
-		while(module->map->row < module->player->player_y)
-		{
-			tmp = tmp->next;
-			module->map->row++;
-		}
-		res = verify_move(module, tmp->content[module->player->player_x + 1]);
+		res = verify_move(module, tmp->content[module->player->player_y][module->player->player_x + 1]);
 		if (res == 0)
 		{
 			module->player->player_step = module->player->player_step + 1;
 			module->player->player_eye = 3;
-			tmp->content[module->player->player_x + 1] = 'P';
-			tmp->content[module->player->player_x] = '0';
+			module->map->map[module->player->player_y]
+				[module->player->player_x + 1] = 'P';
+			module->map->map[module->player->player_y]
+				[module->player->player_x] = '0';
 			print_map(module);
 		}
 		else if (res == 1)

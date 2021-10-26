@@ -45,7 +45,8 @@ int	read_map(t_module *module)
 	int		b;
 
 	a = 0;
-	while(tmp != NULL)
+	tmp = NULL;
+	while(tmp != NULL || a == 0)
 	{
 		tmp_map = malloc(a + 1 * sizeof(char *));
 		if (module->map->map == NULL)

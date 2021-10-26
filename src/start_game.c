@@ -40,10 +40,7 @@ int	choose_sprite(char *line, t_module *module)
 	else if (line[module->map->col] == 'E')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[3]->img, SPRITE_SIZE * module->map->col , SPRITE_SIZE * module->map->row);
 	else if (line[module->map->col] == 'P')
-	{
-
 		position_player(module);
-	}
 	else if (line[module->map->col] == 'J')
 		mlx_put_image_to_window(module->vars->mlx, module->vars->win, module->sprite[5]->img, SPRITE_SIZE * module->map->col ,SPRITE_SIZE * module->map->col);
 	else
@@ -61,22 +58,17 @@ int	choose_sprite(char *line, t_module *module)
 // }				t_player;
 int	print_map(t_module *module)
 {
-	int	a;
-
-	printf("ola mundo\n");
 	module->map->row = 0;
 	module->coin->amount  = 0;
-	a = 0;
 	while(module->map->row < module->map->height)
 	{
 		module->map->col = 0;
 		while(module->map->col < module->map->width)
 		{
-			if(choose_sprite(, module) == 1)
+			if(choose_sprite(module->map->map[module->map->row], module) == 1)
 				return (error(0, "It is not possible to find the sprite!"));
 			module->map->col++;
 		}
-		tmp = tmp->next;
 		module->map->row++;
 	}
 	return(0);
