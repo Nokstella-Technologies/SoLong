@@ -215,6 +215,11 @@ int key_hook(int keycode, t_module *module)
 	return (0);
 }
 
+void	close_window(t_module *module)
+{
+	mlx_hook(module->vars->win, 17, 1L<<17, destroy_all, module);
+}
+
 int	hook(t_module *module)
 {
 	mlx_key_hook(module->vars->win, key_hook, module);

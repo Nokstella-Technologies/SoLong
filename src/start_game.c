@@ -61,20 +61,18 @@ int	choose_sprite(char *line, t_module *module)
 // }				t_player;
 int	print_map(t_module *module)
 {
-	t_list	*tmp;
-	char *tmp2;
+	int	a;
 
 	printf("ola mundo\n");
-	tmp = module->map->map[0];
 	module->map->row = 0;
 	module->coin->amount  = 0;
+	a = 0;
 	while(module->map->row < module->map->height)
 	{
 		module->map->col = 0;
 		while(module->map->col < module->map->width)
 		{
-			tmp2 = tmp->content;
-			if(choose_sprite(tmp->content, module) == 1)
+			if(choose_sprite(, module) == 1)
 				return (error(0, "It is not possible to find the sprite!"));
 			module->map->col++;
 		}

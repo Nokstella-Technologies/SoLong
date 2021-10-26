@@ -27,7 +27,7 @@ $(OBJ):
 clean:
 	rm -f $(OBJ)
 
-teste:
+teste: all
 	./a.out "./assets/maps/map_3.ber"
 
 # $(OBJ): $(SRC)

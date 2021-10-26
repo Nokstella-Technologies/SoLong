@@ -13,15 +13,19 @@
 #include "so_long.h"
 
 
-void	destroy_map(t_map *map)
+void	clear_map(t_map *map)
 {
-	ft_lstclear(map->map, &free_ptr);
+	while (map->height)
+	{
+		free(map->map[map->height]);
+		map->height--;
+	}
 	free(map->map);
 }
 
-void	destroy_window(t_module *module)
+int	destroy_window(t_module *module)
 {	
-	int i;
+	int i; 
 
 	i = -1;
 	while (i++ < 6)
@@ -29,9 +33,10 @@ void	destroy_window(t_module *module)
 		mlx_destroy_image(module->vars->mlx, module->sprite[i]->img);
 		free(module->sprite[i]);
 	}
-	destroy_map(module->map);
+	clear_map(module->map);
 	mlx_destroy_window(module->vars->mlx, module->vars->win);
 	free(module->vars);
+	return (0);
 }
 
 void	destroy_all(t_module *module)

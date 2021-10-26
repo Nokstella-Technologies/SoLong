@@ -26,13 +26,15 @@
 # define SPRITE_SIZE		32
 
 typedef struct s_map{
-	t_list	**map;
+	char	**map;
 	int		fd;
 	int		width;
 	int		height;
 	int		col;
 	int		row;
 }			t_map;
+
+
 
 typedef struct	s_data_img {
 	void	*img;
@@ -73,8 +75,8 @@ void	free_ptr(void *ptr);
 
 int		ft_verify_str(char *str, char *ver, int max_search);
 
-void	destroy_map(t_map *map);
-void	destroy_window(t_module *module);
+void	clear_map(t_map *map);
+int		destroy_window(t_module *module);
 void	destroy_all(t_module *module);
 
 int		start_game(t_module *module);
@@ -88,4 +90,7 @@ int		hook(t_module *module);
 void	position_player(t_module *module);
 
 void	coin_print(t_module *module);
+
+void	close_window(t_module *module);
+
 #endif

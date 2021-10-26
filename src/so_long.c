@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 			return(error(14, NULL)); 
 		if (verify_map(argv[1], module) == 1)
 		{
-			destroy_map(module->map);
+			clear_map(module->map);
 			return(1);
 		}
 		else if (start_game(module) == 1)

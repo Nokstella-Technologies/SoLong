@@ -39,23 +39,29 @@ int verify_width_map(t_map *map, char *content, int height_now)
 
 int	read_map(t_module *module)
 {
-	t_list	*tmp;
+	char	*tmp;
+	char	**tmp_map;
 	int		a;
+	int		b;
 
-	module->map->map = ft_calloc(2 ,sizeof(t_list *));
-	if(module->map->map == NULL)
-		return (error(14, NULL));
-	tmp = ft_lstnew(get_next_line(module->map->fd));
-	module->map->width = ft_strlen(tmp->content) - 1;
-	module->map->map[0] = tmp;
 	a = 0;
-	while(tmp->content != NULL)
+	while(tmp != NULL)
 	{
-		if(verify_width_map(module->map, (char *) tmp->content, a) == 1)
-			return(1);
-		tmp->next = malloc(1 * sizeof(t_list));
-		tmp = tmp->next;
-		tmp->content = get_next_line(module->map->fd);
+		tmp_map = malloc(a + 1 * sizeof(char *));
+		if (module->map->map == NULL)
+			return (error(14, NULL));
+		tmp = get_next_line(module->map->fd);
+		if (verify_width_map(module->map, tmp, a) == 1)
+			return (1);
+		tmp_map[a] = tmp;
+		if (module->map->map != NULL)
+		{
+			b = 0;
+			while(++b < a)
+				tmp_map[b] = module->map->map[b];
+			free_ptr(module->map->map);
+		}
+		module->map->map = tmp_map;
 		a++;
 	}
 	if(a < 4)
