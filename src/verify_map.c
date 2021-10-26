@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:37:11 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/25 16:36:12 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/26 21:26:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,14 @@ int verify_width_map(t_map *map, char *content, int height_now)
 		return (error(0, "Width is too small!"));
 	if (ft_verify_str(content, "1", map->width) == 0)
 	{
-		if (((int)ft_strlen(content)) != map->width && height_now > 0)
-			return (error(0, "Wrong construct of the map!"));
-		if (((int)ft_strlen(content)) - 1 != map->width && height_now == 0)
+		if (((int)ft_strlen(content)) != map->width && height_now  > 0)
 			return (error(0, "Wrong construct of the map!"));
 		content[map->width] = '\0';
 		return(0);
 	}
-	else if (ft_verify_str(content, "10ECPJ", map->width) == 0)
+	if (ft_verify_str(content, "10ECPJ", map->width) == 0)
 	{
-		if (content [0] != '1' && content [map->width - 1] != '1')
+		if (content[0] != '1' && content [map->width - 1] != '1')
 			return (error(0, "Wrong construct of the map!"));
 		if (((int)ft_strlen(content)) - 1 != map->width)
 			return (error(0, "Wrong construct of the map!"));
@@ -39,29 +37,28 @@ int verify_width_map(t_map *map, char *content, int height_now)
 
 int	read_map(t_module *module)
 {
-	char	*tmp;
 	char	**tmp_map;
 	int		a;
 	int		b;
 
 	a = 0;
-	tmp = NULL;
-	while(tmp != NULL || a == 0)
+	tmp_map = NULL;
+	module->map->width = 0;
+	while(module->map->map == NULL || module->map->map[a - 1] != NULL || a == 0)
 	{
-		tmp_map = malloc(a + 1 * sizeof(char *));
-		if (module->map->map == NULL)
+		tmp_map = malloc(a + 2 * sizeof(char *));
+		if (tmp_map == NULL)
 			return (error(14, NULL));
-		tmp = get_next_line(module->map->fd);
-		if (verify_width_map(module->map, tmp, a) == 1)
+		tmp_map[a + 2] = NULL;
+		tmp_map[a] = get_next_line(module->map->fd);
+		if (module->map->width == 0)
+			module->map->width = strlen(tmp_map[a]) - 1;
+		if (verify_width_map(module->map, tmp_map[a], a) == 1)
 			return (1);
-		tmp_map[a] = tmp;
-		if (module->map->map != NULL)
-		{
-			b = 0;
-			while(++b < a)
-				tmp_map[b] = module->map->map[b];
-			free_ptr(module->map->map);
-		}
+		b = -1;
+		while(++b < a)
+			tmp_map[b] = module->map->map[b];
+		free_ptr(module->map->map);
 		module->map->map = tmp_map;
 		a++;
 	}
@@ -74,6 +71,7 @@ int	read_map(t_module *module)
 int	verify_map(char *name_map, t_module *module)
 {
 	module->map = malloc(1 * sizeof(t_map));
+	module->map->map = NULL;
 	if(module->map == NULL)
 		return (error(14, NULL));
 	module->map->fd = open(name_map, O_RDONLY);

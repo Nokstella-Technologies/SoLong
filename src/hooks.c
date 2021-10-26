@@ -36,156 +36,32 @@ int		verify_move(t_module *module, char verify)
 		return (2);
 }
 
-void	move_d(t_module *module, int x, int y, int is_player)
+void	move(t_module *module, int x, int y)
 {
 	int		res;
 
-	if(is_player == 1)
+	res = verify_move(module, module->map->map[y][x]);
+	if (res == 0)
 	{
-		res = verify_move(module, tmp->content[module->player->player_y][module->player->player_x + 1]);
-		if (res == 0)
-		{
-			module->player->player_step = module->player->player_step + 1;
-			module->player->player_eye = 3;
-			module->map->map[module->player->player_y]
-				[module->player->player_x + 1] = 'P';
-			module->map->map[module->player->player_y]
-				[module->player->player_x] = '0';
-			print_map(module);
-		}
-		else if (res == 1)
-			module->player->player_eye = 3;
-		else if (res == 2)
-		{
-			ft_printf("YOU WIN!\n");
-			// destroy_all(module);
-		}
-		else if (res == 3)
-		{
-			ft_printf("GAME OVER!\n");
-			// destroy_all(module);
-		}
+		module->player->player_step = module->player->player_step + 1;
+		module->player->player_eye = 3;
+		module->map->map[module->player->player_y]
+			[module->player->player_x + 1] = 'P';
+		module->map->map[module->player->player_y]
+		[module->player->player_x] = '0';
+		print_map(module);
 	}
-}
-
-void	move_a(t_module *module, int is_player)
-{
-	t_list	*tmp;
-	int		res;
-
-	if(is_player == 1)
+	else if (res == 1)
+		module->player->player_eye = 3;
+	else if (res == 2)
 	{
-		module->map->col = 0;
-		tmp = module->map->map[0];
-		module->map->row = 0;
-		while(module->map->row < module->player->player_y)
-		{
-			tmp = tmp->next;
-			module->map->row++;
-		}
-		res = verify_move(module, tmp->content[module->player->player_x - 1]);
-		if (res == 0)
-		{
-			module->player->player_step = module->player->player_step - 1;
-			module->player->player_eye = 2;
-			tmp->content[module->player->player_x - 1] = 'P';
-			tmp->content[module->player->player_x] = '0';
-			print_map(module);
-		}
-		else if (res == 1)
-			module->player->player_eye = 2;
-		else if (res == 2)
-		{
-			ft_printf("YOU WIN!\n");
-			// destroy_all(module);
-		}
-		else if (res == 3)
-		{
-			ft_printf("GAME OVER!\n");
-			// destroy_all(module);
-		}
+		ft_printf("YOU WIN!\n");
+		// destroy_all(module);
 	}
-}
-
-void	move_w(t_module *module, int is_player)
-{
-	t_list	*tmp;
-	int		res;
-
-	if(is_player == 1)
+	else if (res == 3)
 	{
-		module->map->col = 0;
-		tmp = module->map->map[0];
-		module->map->row = 0;
-		while(module->map->row < module->player->player_y - 1)
-		{
-			tmp = tmp->next;
-			module->map->row++;
-		}
-		res = verify_move(module, tmp->content[module->player->player_x]);
-		if (res == 0)
-		{
-			module->player->player_step = module->player->player_step + 1;
-			module->player->player_eye = 0;
-			tmp->content[module->player->player_x] = 'P';
-			tmp = tmp->next;
-			tmp->content[module->player->player_x] = '0';
-			print_map(module);
-		}
-		else if (res == 1)
-			module->player->player_eye = 2;
-		else if (res == 2)
-		{
-			ft_printf("YOU WIN!\n");
-			// destroy_all(module);
-		}
-		else if (res == 3)
-		{
-			ft_printf("GAME OVER!\n");
-			// destroy_all(module);
-		}
-	}
-}
-
-void	move_s(t_module *module, int is_player)
-{
-	t_list	*tmp;
-	int		res;
-	char	*tmp_player_position;
-
-	if(is_player == 1)
-	{
-		module->map->col = 0;
-		tmp = module->map->map[0];
-		module->map->row = 0;
-		while(module->map->row < module->player->player_y)
-		{
-			tmp = tmp->next;
-			module->map->row++;
-		}
-		tmp_player_position = tmp->content;
-		tmp = tmp->next;
-		res = verify_move(module,tmp->content[module->player->player_x]);
-		if (res == 0)
-		{
-			module->player->player_step = module->player->player_step + 1;
-			module->player->player_eye = 1;
-			tmp_player_position[module->player->player_x] = '0';
-			tmp->content[module->player->player_x] = 'P';
-			print_map(module);
-		}
-		else if (res == 1)
-			module->player->player_eye = 1;
-		else if (res == 2)
-		{
-			ft_printf("YOU WIN!\n");
-			// destroy_all(module);
-		}
-		else if (res == 3)
-		{
-			ft_printf("GAME OVER!\n");
-			// destroy_all(module);
-		}
+		ft_printf("GAME OVER!\n");
+		// destroy_all(module);
 	}
 }
 
@@ -198,20 +74,20 @@ int key_hook(int keycode, t_module *module)
 		return (1);
 	}
 	if(keycode == KEY_D)
-		move_d(module, 1);
+		move(module, module->player->player_x + 1, module->player->player_y);
 	if(keycode == KEY_W)
-		move_w(module, 1);
+		move(module, module->player->player_x - 1, module->player->player_y);
 	if(keycode == KEY_A)
-		move_a(module, 1);
+		move(module, module->player->player_x, module->player->player_y + 1);
 	if(keycode == KEY_S)
-		move_s(module, 1);
+		move(module, module->player->player_x, module->player->player_y - 1);
 	return (0);
 }
 
-void	close_window(t_module *module)
-{
-	mlx_hook(module->vars->win, 17, 1L<<17, destroy_all, module);
-}
+// void	close_window(t_module *module)
+// {
+	// mlx_hook(module->vars->win, 17, 1L<<17, destroy_all, module);
+// }
 
 int	hook(t_module *module)
 {
