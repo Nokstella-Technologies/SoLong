@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:38 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/22 19:26:09 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:05:42 by prafael-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,35 @@
 
 void	clear_map(t_map *map)
 {
+	close(map->fd);
 	while (map->height)
 	{
-		free(map->map[map->height]);
+		free_ptr((void **)&map->map[map->height]);
 		map->height--;
 	}
-	free(map->map);
+	free_ptr((void **)&map->map);
+	free_ptr((void **)&map);
 }
 
-int	destroy_window(t_module *module)
+void	close_window(t_module *module)
 {	
 	int i; 
 
 	i = -1;
-	while (i++ < 6)
-	{
-		mlx_destroy_image(module->vars->mlx, module->sprite[i]->img);
-		free(module->sprite[i]);
-	}
-	clear_map(module->map);
 	mlx_destroy_window(module->vars->mlx, module->vars->win);
-	free(module->vars);
-	return (0);
+	mlx_destroy_display(module->vars->mlx);
+	while (++i < 6)
+	{
+		// mlx_destroy_image(module->vars->win, module->sprite[i]->img);
+		free_ptr((void **)&module->sprite[i]);
+	}
+	free_ptr((void **)&module->sprite);
+	clear_map(module->map);
 }
 
-void	destroy_all(t_module *module)
+void	close_all(t_module *module)
 {
-	destroy_window(module);
-	mlx_loop_end(module->vars->mlx);
-	free(module);
+	close_window(module);
 }
 
 /*

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:39 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/10/25 18:12:28 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:19:12 by prafael-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ int		verify_move(t_module *module, char verify)
 		else
 			return(1);
 	}
-	if(verify == 'J')
-		return (3);
 	else
-		return (2);
+		return (3);
 }
 
-void	move(t_module *module, int x, int y)
+void	move(t_module *module, int x, int y, int eye)
 {
 	int		res;
 
@@ -44,24 +42,23 @@ void	move(t_module *module, int x, int y)
 	if (res == 0)
 	{
 		module->player->player_step = module->player->player_step + 1;
-		module->player->player_eye = 3;
+		module->player->player_eye = eye;
+		module->map->map[y][x] = 'P';
 		module->map->map[module->player->player_y]
-			[module->player->player_x + 1] = 'P';
-		module->map->map[module->player->player_y]
-		[module->player->player_x] = '0';
+			[module->player->player_x] = '0';
 		print_map(module);
 	}
 	else if (res == 1)
-		module->player->player_eye = 3;
+		module->player->player_eye = eye;
 	else if (res == 2)
 	{
 		ft_printf("YOU WIN!\n");
-		// destroy_all(module);
+		close_all(module);
 	}
 	else if (res == 3)
 	{
 		ft_printf("GAME OVER!\n");
-		// destroy_all(module);
+		close_all(module);
 	}
 }
 
@@ -69,18 +66,15 @@ int key_hook(int keycode, t_module *module)
 {
 	printf("%d keycode\n", keycode);
 	if(keycode == 113)
-	{
-		destroy_all(module);
-		return (1);
-	}
+		close_all(module);
 	if(keycode == KEY_D)
-		move(module, module->player->player_x + 1, module->player->player_y);
-	if(keycode == KEY_W)
-		move(module, module->player->player_x - 1, module->player->player_y);
+		move(module, module->player->player_x + 1, module->player->player_y, 3);
 	if(keycode == KEY_A)
-		move(module, module->player->player_x, module->player->player_y + 1);
+		move(module, module->player->player_x - 1, module->player->player_y, 2);
 	if(keycode == KEY_S)
-		move(module, module->player->player_x, module->player->player_y - 1);
+		move(module, module->player->player_x, module->player->player_y + 1, 1);
+	if(keycode == KEY_W)
+		move(module, module->player->player_x, module->player->player_y - 1, 0);
 	return (0);
 }
 
@@ -89,9 +83,8 @@ int key_hook(int keycode, t_module *module)
 	// mlx_hook(module->vars->win, 17, 1L<<17, destroy_all, module);
 // }
 
-int	hook(t_module *module)
+void	hook(t_module *module)
 {
 	mlx_key_hook(module->vars->win, key_hook, module);
-	mlx_loop(module->vars->mlx);
-	return (0);
+	// mlx_loop_hook(module->vars->mlx, &loop_hook, module);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:37:11 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/26 21:26:59 by marvin           ###   ########.fr       */
+/*   Updated: 2021/10/27 19:30:11 by prafael-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,12 @@ int	read_map(t_module *module)
 	module->map->width = 0;
 	while(module->map->map == NULL || module->map->map[a - 1] != NULL || a == 0)
 	{
-		tmp_map = malloc(a + 2 * sizeof(char *));
+		tmp_map = (char **)ft_calloc(a + 2 ,sizeof(char *));
 		if (tmp_map == NULL)
 			return (error(14, NULL));
-		tmp_map[a + 2] = NULL;
 		tmp_map[a] = get_next_line(module->map->fd);
+		if(tmp_map[a] == NULL)
+			break;
 		if (module->map->width == 0)
 			module->map->width = strlen(tmp_map[a]) - 1;
 		if (verify_width_map(module->map, tmp_map[a], a) == 1)
@@ -58,7 +59,7 @@ int	read_map(t_module *module)
 		b = -1;
 		while(++b < a)
 			tmp_map[b] = module->map->map[b];
-		free_ptr(module->map->map);
+		free_ptr((void **)&module->map->map);
 		module->map->map = tmp_map;
 		a++;
 	}

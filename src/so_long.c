@@ -34,10 +34,18 @@ int	main(int argc, char **argv)
 			clear_map(module->map);
 			return(1);
 		}
-		else if (start_game(module) == 1)
+		else if (start_game(module) == 0)
+		{
+			hook(module);
+			mlx_loop(module->vars->mlx);
+		}	
+		else
+		{
+			free_ptr((void **)&module->vars->mlx);
+			free_ptr((void **)&module->vars);
+			free_ptr((void **)&module);
 			return(1);
-		else if (hook(module) == 1)
-			return(1);
+		}
 	}
 	else
 		return(error(22, NULL));

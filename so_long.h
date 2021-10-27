@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:43:58 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/25 16:47:41 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/10/27 20:40:46 by prafael-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_player{
 typedef struct			s_module {
 	t_vars		*vars;
 	t_map		*map;
-	t_player		*player;
+	t_player	*player;
 	t_coin		*coin;
 	t_data_img	**sprite;
 }						t_module;
@@ -71,26 +71,25 @@ typedef struct			s_module {
 
 
 
-void	free_ptr(void *ptr);
+void	free_ptr(void **ptr);
 
 int		ft_verify_str(char *str, char *ver, int max_search);
 
+int		error(int errnum, char *message);
 void	clear_map(t_map *map);
-int		destroy_window(t_module *module);
-void	destroy_all(t_module *module);
+void	close_window(t_module *module);
+void	close_all(t_module *module);
 
 int		start_game(t_module *module);
 int		print_map(t_module *module);
-int		error(int errnum, char *message);
 
 int		verify_map(char *name_map, t_module *module);
 
-int		hook(t_module *module);
+void	hook(t_module *module);
 
 void	position_player(t_module *module);
 
 void	coin_print(t_module *module);
 
-void	close_window(t_module *module);
 
 #endif

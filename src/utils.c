@@ -6,7 +6,7 @@
 /*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:39:07 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/22 16:26:15 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/10/27 21:26:45 by prafael-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	ft_verify_str(char *str, char *ver, int max_search)
 	return(1);
 }
 
-void	free_ptr(void *ptr)
+void	free_ptr(void **ptr)
 {
 	if (ptr != NULL)
 	{
-		free(ptr);
+		free(*ptr);
 		ptr = NULL;
 	}
 }
