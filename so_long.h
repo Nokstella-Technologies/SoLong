@@ -6,7 +6,7 @@
 /*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:43:58 by prafael-          #+#    #+#             */
-/*   Updated: 2021/11/03 16:40:24 by luizz            ###   ########.fr       */
+/*   Updated: 2021/11/03 19:27:56 by luizz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct			s_module {
 	t_player	*player;
 	t_coin		*coin;
 	t_sprite	*sprite;
+	t_bool		end_game;
 }						t_module;
 
 void	free_ptr(void **ptr);

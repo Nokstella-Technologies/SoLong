@@ -6,7 +6,7 @@
 /*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:53 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/11/03 15:03:21 by luizz            ###   ########.fr       */
+/*   Updated: 2021/11/03 19:27:47 by luizz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	start_game(t_module *module)
 	module->player = malloc(1 * sizeof(t_player));
 	module->coin = malloc(1 * sizeof(t_coin));
 	module->sprite = malloc(6 * sizeof(t_sprite));
+	module->end_game = FALSE;
 	if (module->sprite == NULL || module->vars == NULL
 	|| module->player == NULL || module->coin == NULL)
 		return (error(14, NULL));

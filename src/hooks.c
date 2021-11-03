@@ -6,7 +6,7 @@
 /*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:39 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/11/03 17:10:34 by luizz            ###   ########.fr       */
+/*   Updated: 2021/11/03 19:31:29 by luizz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,37 +52,48 @@ void	move(t_module *module, int x, int y, int eye)
 		module->player->player_eye = eye;
 	else if (res == 2)
 	{
-		ft_printf("YOU WIN!\n");
+		ft_printf("\033[32mYOU WIN!\n\033[0");
+		module->end_game = TRUE;
 	}
 	else if (res == 3)
 	{
-		ft_printf("GAME OVER!\n");
-		close_all(module);
+		ft_printf("\033[31mGAME OVER!\n\033[0");
+		module->end_game = TRUE;
 	}
 }
 
 int key_hook(int keycode, t_module *module)
 {
-	printf("%d keycode\n", keycode);
 	if(keycode == 113 || keycode == KEY_ESC)
-	{
-		ft_printf("GAME OVER!\n");
 		close_all(module);
-	}
-	if(keycode == KEY_D || keycode == KEY_RIGHT)
+	else if(module->end_game == TRUE)
+		return (0);
+	else if(keycode == KEY_D || keycode == KEY_RIGHT)
 		move(module, module->player->player_x + 1, module->player->player_y, 3);
-	if(keycode == KEY_A || keycode == KEY_LEFT)
+	else if(keycode == KEY_A || keycode == KEY_LEFT)
 		move(module, module->player->player_x - 1, module->player->player_y, 2);
-	if(keycode == KEY_S || keycode == KEY_DOWN)
+	else if(keycode == KEY_S || keycode == KEY_DOWN)
 		move(module, module->player->player_x, module->player->player_y + 1, 1);
-	if(keycode == KEY_W || keycode == KEY_UP)
+	else if(keycode == KEY_W || keycode == KEY_UP)
 		move(module, module->player->player_x, module->player->player_y - 1, 0);
 	return (0);
 }
+int print_steps(t_module *module)
+{
+	char *test;
+	
+	test = ft_strjoin("STEPS: ", ft_itoa(module->player->player_step));
+	mlx_string_put(module->vars->mlx,module->vars->win, 11, 11,
+			0x00FFFFFF, test);
+	free_ptr((void **)&test);
+	return (0);
+}
+
 
 void	hook(t_module *module)
 {
 	mlx_key_hook(module->vars->win, &key_hook, module);
+	mlx_loop_hook(module->vars->mlx,&print_steps, module);
 	mlx_hook(module->vars->win, 17, 0, &close_all, module);
 	mlx_hook(module->vars->win, 9, 1L<<21, &print_map, module);
 }

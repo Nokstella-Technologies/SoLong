@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: luizz <luizz@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2021/11/03 21:55:20 by marvin           ###   ########.fr        #
+#    Updated: 2021/11/03 19:32:10 by luizz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ clean:
 	rm -f $(OBJ)
 
 teste: all
-	./a.out "./assets/maps/map_3.ber"
+	./a.out "./assets/maps/map_2.ber"
 
 valgrind: all
 	valgrind --show-leak-kinds=all --track-origins=yes  --leak-check=full   ./a.out "./assets/maps/map_2.ber" 

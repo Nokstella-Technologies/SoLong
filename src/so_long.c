@@ -12,13 +12,9 @@
 
 #include "so_long.h"
 
-// int	key_hook(int keycode, t_vars *vars)
-// {
-// 	if(keycode == KEY_ESC)
-// 		return (-1);
-// 	ft_printf("Hello from key_hook!%d\n", keycode);
-// 	return(0);
-// }
+// erro map .ber
+// sprites personagem
+// norminette
 
 int	main(int argc, char **argv)
 {
@@ -38,6 +34,7 @@ int	main(int argc, char **argv)
 		else
 		{
 			clear_map(module->map);
+			free_ptr((void **)&module);
 			exit(1);
 		}
 	}
