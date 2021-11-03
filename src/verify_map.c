@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   verify_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:37:11 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/27 19:30:11 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/11/03 21:53:46 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,19 @@ int	read_map(t_module *module)
 		if (tmp_map == NULL)
 			return (error(14, NULL));
 		tmp_map[a] = get_next_line(module->map->fd);
-		if(tmp_map[a] == NULL)
+		if (tmp_map[a] == NULL)
+		{
+			free_ptr((void **)&tmp_map);
 			break;
+		}
 		if (module->map->width == 0)
 			module->map->width = strlen(tmp_map[a]) - 1;
 		if (verify_width_map(module->map, tmp_map[a], a) == 1)
+		{
+			module->map->height = a + 1;
+			free_ptr((void **)&tmp_map);
 			return (1);
+		}
 		b = -1;
 		while(++b < a)
 			tmp_map[b] = module->map->map[b];

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: luizz <luizz@student.42.fr>                +#+  +:+       +#+         #
+#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/22 16:11:34 by prafael-          #+#    #+#              #
-#    Updated: 2021/11/03 14:56:51 by luizz            ###   ########.fr        #
+#    Updated: 2021/11/03 21:55:20 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,6 @@ teste: all
 	./a.out "./assets/maps/map_3.ber"
 
 valgrind: all
-	valgrind --track-origins=yes  --leak-check=full   ./a.out "./assets/maps/map_2.ber" 
+	valgrind --show-leak-kinds=all --track-origins=yes  --leak-check=full   ./a.out "./assets/maps/map_2.ber" 
 # $(OBJ): $(SRC)
 # 	$(CC) -Wall -Wextra -Werror -Imlx_linux -O3 -c $(SRC)

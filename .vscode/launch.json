@@ -10,7 +10,7 @@
 			"request": "launch",
 			"program": "${workspaceRoot}/a.out",
 			"args": [
-				"./assets/maps/map_3.ber",
+				"./assets/maps/map_2.ber",
 			],
 			"cwd": "${workspaceRoot}",
 			"preLaunchTask": "C/C++: gcc build active file",

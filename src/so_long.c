@@ -46,30 +46,3 @@ int	main(int argc, char **argv)
 	exit (0);
 }
 
-// int main()
-// {
-// 	t_data_img	**test3;
-// 	t_map		map;
-// 	t_vars		*vars;
-// 	// void		*mlx;
-
-// 	vars = malloc(1 * sizeof(t_vars));
-// 	test3 = malloc(7 * sizeof(t_data_img *));
-// 	test3[0] = malloc(1 * sizeof(t_data_img));
-// 	test3[1] = malloc(1 * sizeof(t_data_img));
-// 	vars->mlx = mlx_init();
-// 	printf(" ok ok \n\n\n");
-// 	vars->win = mlx_new_window(vars->mlx, 400, 400, "so_long");
-// 	// load_sprites(&map , mlx, test3);
-// 	printf(" ok ok \n\n\n");
-// 	test3[0]->img = mlx_xpm_file_to_image(vars->mlx, g_sprite_path[0], &test3[0]->img_width, &test3[0]->img_height);
-// 	test3[1]->img = mlx_xpm_file_to_image(vars->mlx, g_sprite_path[1], &test3[1]->img_width, &test3[1]->img_height);
-// 	mlx_put_image_to_window(vars->mlx, vars->win, test3[0]->img, 0, 0);
-// 	mlx_put_image_to_window(vars->mlx, vars->win, test3[1]->img, 100, 0);
-// 	mlx_put_image_to_window(vars->mlx, vars->win, test3[1]->img, 200, 0);
-// 	// mlx_mouse_hook(vars.win, key_hook, &vars);
-// 	// if(error = -1)
-// 	// destroy_all(&vars, test, test2);
-// 	mlx_loop(vars->mlx);
-// 	return(0);
-// }

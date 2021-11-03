@@ -12,7 +12,6 @@
 
 #include "so_long.h"
 
-
 void	clear_map(t_map *map)
 {
 	close(map->fd);
@@ -49,7 +48,7 @@ int	close_all(t_module *module)
 	free_ptr((void **)&module->player);
 	free_ptr((void **)&module->coin);
 	free_ptr((void **)&module);
-	exit(1);
+	exit(0);
 	return (0);
 }
 
