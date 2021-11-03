@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:38 by prafael-          #+#    #+#             */
-/*   Updated: 2021/10/27 21:05:42 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/11/03 17:07:34 by luizz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@
 void	clear_map(t_map *map)
 {
 	close(map->fd);
-	while (map->height)
-	{
+	while (map->height--)
 		free_ptr((void **)&map->map[map->height]);
-		map->height--;
-	}
 	free_ptr((void **)&map->map);
 	free_ptr((void **)&map);
 }
@@ -30,20 +27,30 @@ void	close_window(t_module *module)
 	int i; 
 
 	i = -1;
+	mlx_destroy_image(module->vars->mlx, module->sprite->collect);
+	mlx_destroy_image(module->vars->mlx, module->sprite->wall);
+	mlx_destroy_image(module->vars->mlx, module->sprite->enemies);
+	mlx_destroy_image(module->vars->mlx, module->sprite->ground);
+	mlx_destroy_image(module->vars->mlx, module->sprite->exit);
+	while(++i < 1)
+		mlx_destroy_image(module->vars->mlx, module->sprite->player[i]);
+	free_ptr((void **)&module->sprite->player);
+	free_ptr((void **)&module->sprite);
 	mlx_destroy_window(module->vars->mlx, module->vars->win);
 	mlx_destroy_display(module->vars->mlx);
-	while (++i < 6)
-	{
-		// mlx_destroy_image(module->vars->win, module->sprite[i]->img);
-		free_ptr((void **)&module->sprite[i]);
-	}
-	free_ptr((void **)&module->sprite);
-	clear_map(module->map);
+	free_ptr((void **)&module->vars->mlx);
+	free_ptr((void **)&module->vars);
 }
 
-void	close_all(t_module *module)
+int	close_all(t_module *module)
 {
 	close_window(module);
+	clear_map(module->map);
+	free_ptr((void **)&module->player);
+	free_ptr((void **)&module->coin);
+	free_ptr((void **)&module);
+	exit(1);
+	return (0);
 }
 
 /*

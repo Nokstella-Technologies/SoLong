@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
 		{
-			"name": "(gdb) Launch",
+			"name": "lldb",
 			"type": "lldb",
 			"request": "launch",
 			"program": "${workspaceRoot}/a.out",
@@ -14,7 +14,13 @@
 			],
 			"cwd": "${workspaceRoot}",
 			"preLaunchTask": "C/C++: gcc build active file",
-			"miDebuggerPath": "/usr/bin/lldb"
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+				}
+			],
+			"miDebuggerPath": "/usr/bin/lldb",
 		},
 		{
 			"name": "gdb",
@@ -33,7 +39,6 @@
 				{
 					"description": "Enable pretty-printing for gdb",
 					"text": "-enable-pretty-printing",
-					"ignoreFailures": true
 				}
 			],
 			"preLaunchTask": "C/C++: gcc build active file",

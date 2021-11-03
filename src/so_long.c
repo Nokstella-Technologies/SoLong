@@ -29,27 +29,21 @@ int	main(int argc, char **argv)
 		module = malloc(1 * sizeof(t_module));
 		if(module == NULL)
 			return(error(14, NULL)); 
-		if (verify_map(argv[1], module) == 1)
+		if (verify_map(argv[1], module) == 0)
 		{
-			clear_map(module->map);
-			return(1);
-		}
-		else if (start_game(module) == 0)
-		{
+			start_game(module);
 			hook(module);
 			mlx_loop(module->vars->mlx);
-		}	
+		}
 		else
 		{
-			free_ptr((void **)&module->vars->mlx);
-			free_ptr((void **)&module->vars);
-			free_ptr((void **)&module);
-			return(1);
+			clear_map(module->map);
+			exit(1);
 		}
 	}
 	else
-		return(error(22, NULL));
-	return (0);
+		return (error(22, NULL));
+	exit (0);
 }
 
 // int main()

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:39 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/10/27 21:19:12 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/11/03 17:10:34 by luizz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	move(t_module *module, int x, int y, int eye)
 	else if (res == 2)
 	{
 		ft_printf("YOU WIN!\n");
-		close_all(module);
 	}
 	else if (res == 3)
 	{
@@ -65,26 +64,25 @@ void	move(t_module *module, int x, int y, int eye)
 int key_hook(int keycode, t_module *module)
 {
 	printf("%d keycode\n", keycode);
-	if(keycode == 113)
+	if(keycode == 113 || keycode == KEY_ESC)
+	{
+		ft_printf("GAME OVER!\n");
 		close_all(module);
-	if(keycode == KEY_D)
+	}
+	if(keycode == KEY_D || keycode == KEY_RIGHT)
 		move(module, module->player->player_x + 1, module->player->player_y, 3);
-	if(keycode == KEY_A)
+	if(keycode == KEY_A || keycode == KEY_LEFT)
 		move(module, module->player->player_x - 1, module->player->player_y, 2);
-	if(keycode == KEY_S)
+	if(keycode == KEY_S || keycode == KEY_DOWN)
 		move(module, module->player->player_x, module->player->player_y + 1, 1);
-	if(keycode == KEY_W)
+	if(keycode == KEY_W || keycode == KEY_UP)
 		move(module, module->player->player_x, module->player->player_y - 1, 0);
 	return (0);
 }
 
-// void	close_window(t_module *module)
-// {
-	// mlx_hook(module->vars->win, 17, 1L<<17, destroy_all, module);
-// }
-
 void	hook(t_module *module)
 {
-	mlx_key_hook(module->vars->win, key_hook, module);
-	// mlx_loop_hook(module->vars->mlx, &loop_hook, module);
+	mlx_key_hook(module->vars->win, &key_hook, module);
+	mlx_hook(module->vars->win, 17, 0, &close_all, module);
+	mlx_hook(module->vars->win, 9, 1L<<21, &print_map, module);
 }
