@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:38 by prafael-          #+#    #+#             */
-/*   Updated: 2021/11/03 19:20:18 by luizz            ###   ########.fr       */
+/*   Updated: 2021/11/12 15:21:20 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,21 @@ void	clear_map(t_map *map)
 }
 
 void	close_window(t_module *module)
-{	
-	int i; 
+{
+	int i;
 
 	i = -1;
 	mlx_destroy_image(module->vars->mlx, module->sprite->collect);
 	mlx_destroy_image(module->vars->mlx, module->sprite->wall);
-	mlx_destroy_image(module->vars->mlx, module->sprite->enemies);
 	mlx_destroy_image(module->vars->mlx, module->sprite->ground);
 	mlx_destroy_image(module->vars->mlx, module->sprite->exit);
-	while(++i < 1)
+	while(++i < 4)
 		mlx_destroy_image(module->vars->mlx, module->sprite->player[i]);
+	i = -1;
+	while(++i < 4)
+		mlx_destroy_image(module->vars->mlx, module->sprite->enemies[i]);
 	free_ptr((void **)&module->sprite->player);
+	free_ptr((void **)&module->sprite->enemies);
 	free_ptr((void **)&module->sprite);
 	mlx_destroy_window(module->vars->mlx, module->vars->win);
 	mlx_destroy_display(module->vars->mlx);

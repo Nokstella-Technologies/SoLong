@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:43:58 by prafael-          #+#    #+#             */
-/*   Updated: 2021/11/03 19:27:56 by luizz            ###   ########.fr       */
+/*   Updated: 2021/11/12 15:51:23 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@
 # include "libft/libft.h"
 # include <string.h>
 
-
-# define GROUND "./assets/sprites/0.xpm"
-# define WALL "./assets/sprites/1.xpm"
-# define COLLECT "./assets/sprites/C.xpm"
-# define EXIT "./assets/sprites/E.xpm"
-# define PLAYER "./assets/sprites/P.xpm"
-# define ENEMY "./assets/sprites/J.xpm"
+# define GROUND "./assets/sprites/luiz/0.xpm"
+# define WALL "./assets/sprites/luiz/1.xpm"
+# define COLLECT "./assets/sprites/luiz/C.xpm"
+# define EXIT "./assets/sprites/luiz/E.xpm"
+# define PLAYER_1 "./assets/sprites/luiz/P_0.xpm"
+# define PLAYER_2 "./assets/sprites/luiz/P_1.xpm"
+# define PLAYER_3 "./assets/sprites/luiz/P_2.xpm"
+# define PLAYER_4 "./assets/sprites/luiz/P_3.xpm"
+# define ENEMY_1 "./assets/sprites/luiz/J_0.xpm"
+# define ENEMY_2 "./assets/sprites/luiz/J_1.xpm"
+# define ENEMY_3 "./assets/sprites/luiz/J_2.xpm"
+# define ENEMY_4 "./assets/sprites/luiz/J_3.xpm"
 # define SPRITE_SIZE		32
 
 # define X_EVENT_KEY_PRESS 2
@@ -59,7 +64,7 @@ typedef struct	s_sprite {
 	void	*ground;
 	void	*collect;
 	void	*exit;
-	void	*enemies;
+	void	**enemies;
 	void	**player;
 	int		img_width;
 	int		img_height;
@@ -99,7 +104,7 @@ int		error(int errnum, char *message);
 void	clear_map(t_map *map);
 void	close_window(t_module *module);
 int		close_all(t_module *module);
-
+void	move(t_module *module, int x, int y, int eye);
 int		verify_map(char *name_map, t_module *module);
 int		start_game(t_module *module);
 int		print_map(t_module *module);

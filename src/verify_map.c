@@ -12,24 +12,24 @@
 
 #include "so_long.h"
 
-int verify_width_map(t_map *map, char *content, int height_now)
+int verify_width_map(t_module *module, char *content, int height_now)
 {
-	if (map->width < 4)
+	if (module->map->width < 4)
 		return (error(0, "Width is too small!"));
-	if (ft_verify_str(content, "1", map->width) == 0)
+	if (ft_verify_str(content, "1", module->map->width) == 0)
 	{
-		if (((int)ft_strlen(content)) != map->width && height_now  > 0)
+		if (((int)ft_strlen(content)) != module->map->width && height_now  > 0)
 			return (error(0, "Wrong construct of the map!"));
-		content[map->width] = '\0';
+		content[module->map->width] = '\0';
 		return(0);
 	}
-	if (ft_verify_str(content, "10ECPJ", map->width) == 0)
+	if (ft_verify_str(content, "10ECPJ", module->map->width) == 0)
 	{
-		if (content[0] != '1' && content [map->width - 1] != '1')
+		if (content[0] != '1' && content [module->map->width - 1] != '1')
 			return (error(0, "Wrong construct of the map!"));
-		if (((int)ft_strlen(content)) - 1 != map->width)
+		if (((int)ft_strlen(content)) - 1 != module->map->width)
 			return (error(0, "Wrong construct of the map!"));
-		content[map->width] = '\0';
+		content[module->map->width] = '\0';
 		return(0);
 	}
 	return (error(0, "Wrong construct of the map this letter is not allowed!"));
@@ -48,7 +48,7 @@ static int	read_map_while(t_module *module, char **tmp_map, int *a, int b)
 	}
 	if (module->map->width == 0)
 		module->map->width = strlen(tmp_map[*a]) - 1;
-	if (verify_width_map(module->map, tmp_map[*a], *a) == 1)
+	if (verify_width_map(module, tmp_map[*a], *a) == 1)
 	{
 		module->map->height = *a + 1;
 		free_ptr((void **)&tmp_map[*a]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prafael- <prafael-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 23:03:35 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/10/27 19:21:25 by prafael-         ###   ########.fr       */
+/*   Updated: 2021/11/12 15:51:14 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-# include "others/get_next_line.h"
-# include "others/printf/ft_printf.h"
+# include "./others/get_next_line.h"
+# include "./others/printf/ft_printf.h"
 
 typedef struct s_list
 {
@@ -412,7 +412,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 /****************************** others ****************************************/
 /**
- * @brief Function search if have one letter of ptr in str and return the firts letter
+ * @brief Function search if have one letter of ptr in str and return the firts 
+ * letter
  * 
  * @param str to be searched
  * @param ptr to search all
@@ -429,4 +430,4 @@ char	*ft_strfstr(const char *str, const char *ptr);
  */
 char	*ft_itoa_base(size_t number, char *base);
 
-# endif
+#endif

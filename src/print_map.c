@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 14:37:15 by luizz             #+#    #+#             */
-/*   Updated: 2021/11/03 16:30:09 by luizz            ###   ########.fr       */
+/*   Updated: 2021/11/12 15:00:26 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	put_img(t_module *module, void *sprite)
 
 static void	position_player(t_module *module)
 {
-	put_img(module, module->sprite->player[0]);
+	put_img(module, module->sprite->player[module->player->player_eye]);
 	module->player->player_x = module->map->col;
 	module->player->player_y = module->map->row;
 }
@@ -47,7 +47,7 @@ static int	choose_sprite(char *line, t_module *module)
 	else if (line[module->map->col] == 'P')
 		position_player(module);
 	else if (line[module->map->col] == 'J')
-		put_img(module, module->sprite->enemies);
+		put_img(module, module->sprite->enemies[0]);
 	else
 		return (1);
 	return (0);

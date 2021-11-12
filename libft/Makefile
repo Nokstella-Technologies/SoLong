@@ -6,7 +6,7 @@
 #    By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/27 13:53:47 by llima-ce          #+#    #+#              #
-#    Updated: 2021/10/19 00:01:13 by llima-ce         ###   ########.fr        #
+#    Updated: 2021/11/12 16:47:19 by llima-ce         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,18 +16,6 @@ CC = gcc
 NAME = libft.a
 
 CFLAGS = -Wall -Wextra -Werror
-
-SRCS_PRINTF =	ft_printf.c				\
-				ft_initiate_function.c	\
-				ft_check_all.c			\
-				ft_formating.c			\
-				ft_check_errors.c		\
-				ft_gets_s_c_p.c			\
-				ft_gets_i_d.c			\
-				ft_gets_u_x.c			\
-				flags_formating.c		\
-				flags_formating2.c		\
-				flags_pointer.c			
 
 SRCS =  ft_isalpha.c	\
 		ft_isdigit.c	\
@@ -79,6 +67,23 @@ SRCS_OTHERS =	get_next_line.c	\
 				ft_itoa_base.c	\
 				ft_strfstr.c	
 
+
+
+SRCS_PRINTF =	ft_printf.c				\
+				ft_vformatf.c			\
+				ft_formatf.c			\
+				struct_functions.c		\
+				ft_check_all.c			\
+				ft_formating.c			\
+				ft_gets_s_c_p.c			\
+				ft_gets_i_d.c			\
+				ft_gets_u_x.c			\
+				flags_formating.c		\
+				flags_formating2.c		\
+				ft_check_errors.c		\
+				flags_pointer.c		
+
+
 OBJS = $(SRCS:.c=.o)
 
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
@@ -87,7 +92,7 @@ OBJS_OTHERS = $(SRCS_OTHERS:.c=.o)
 
 OBJS_PRINTF = $(SRCS_PRINTF:.c=.o)
 
-all: copy others 
+all: copy $(NAME) 
 	make clean
 
 $(NAME): $(OBJS) 
@@ -118,6 +123,9 @@ $(OBJS_PRINTF):$(SRCS_PRINTF)
 clean:
 	rm -f $(OBJS) $(OBJS_BONUS) $(OBJS_OTHERS) $(OBJS_PRINTF)
 	rm -f $(SRCS) $(SRCS_BONUS) $(SRCS_OTHERS) $(SRCS_PRINTF)
+
+fclean: clean
+	rm -f $(NAME)
 
 copy:
 	cp -f part*/ft_*.c .

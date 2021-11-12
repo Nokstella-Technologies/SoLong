@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luizz <luizz@student.42.fr>                +#+  +:+       +#+        */
+/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:53 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/11/03 19:27:47 by luizz            ###   ########.fr       */
+/*   Updated: 2021/11/12 15:08:21 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,19 @@ int	load_sprites(t_vars *vars, t_sprite *sprite)
 	sprite->wall = img_initalize(WALL, vars->mlx, sprite);
 	sprite->ground = img_initalize(GROUND, vars->mlx, sprite);
 	sprite->collect = img_initalize(COLLECT, vars->mlx, sprite);
-	sprite->enemies = img_initalize(ENEMY, vars->mlx, sprite);
 	sprite->exit = img_initalize(EXIT, vars->mlx, sprite);
-	sprite->player = malloc(4 * sizeof(void *));
-	if (sprite->player == NULL)
+	sprite->player = ft_calloc(5, sizeof(void *));
+	sprite->enemies = ft_calloc(5, sizeof(void *));
+	if (sprite->player == NULL || sprite->enemies == NULL)
 		return (error(14, NULL));
-	sprite->player[0] = img_initalize(PLAYER, vars->mlx, sprite);
+	sprite->player[0] = img_initalize(PLAYER_1, vars->mlx, sprite);
+	sprite->player[1] = img_initalize(PLAYER_2, vars->mlx, sprite);
+	sprite->player[2] = img_initalize(PLAYER_3, vars->mlx, sprite);
+	sprite->player[3] = img_initalize(PLAYER_4, vars->mlx, sprite);
+	sprite->enemies[0] = img_initalize(ENEMY_1, vars->mlx, sprite);
+	sprite->enemies[1] = img_initalize(ENEMY_2, vars->mlx, sprite);
+	sprite->enemies[2] = img_initalize(ENEMY_3, vars->mlx, sprite);
+	sprite->enemies[3] = img_initalize(ENEMY_4, vars->mlx, sprite);
 	return (0);
 }
 
@@ -42,8 +49,7 @@ int	start_game(t_module *module)
 	module->coin = malloc(1 * sizeof(t_coin));
 	module->sprite = malloc(6 * sizeof(t_sprite));
 	module->end_game = FALSE;
-	if (module->sprite == NULL || module->vars == NULL
-	|| module->player == NULL || module->coin == NULL)
+	if (!module->sprite || !module->vars || !module->player|| !module->coin)
 		return (error(14, NULL));
 	module->vars->mlx = mlx_init();
 	if (module->vars->mlx == NULL)
@@ -53,6 +59,8 @@ int	start_game(t_module *module)
 		return (error(0, "It is not possible to open the window of the game!"));
 	if (load_sprites(module->vars, module->sprite) == 1)
 		return (1);
+	module->player->player_eye = 0;
+	module->player->player_step = 0;
 	if (print_map(module) == 1)
 		return (1);
 	return(0);
