@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vantonie <vantonie@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:38 by prafael-          #+#    #+#             */
-/*   Updated: 2021/11/12 15:21:20 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/11/15 22:52:35 by vantonie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ void	clear_map(t_map *map)
 
 void	close_window(t_module *module)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	mlx_destroy_image(module->vars->mlx, module->sprite->collect);
 	mlx_destroy_image(module->vars->mlx, module->sprite->wall);
 	mlx_destroy_image(module->vars->mlx, module->sprite->ground);
 	mlx_destroy_image(module->vars->mlx, module->sprite->exit);
-	while(++i < 4)
+	while (++i < 4)
 		mlx_destroy_image(module->vars->mlx, module->sprite->player[i]);
 	i = -1;
-	while(++i < 4)
+	while (++i < 4)
 		mlx_destroy_image(module->vars->mlx, module->sprite->enemies[i]);
 	free_ptr((void **)&module->sprite->player);
 	free_ptr((void **)&module->sprite->enemies);
@@ -100,12 +100,12 @@ errnum = 39 --> No locks available
 int	error(int errnum, char *message)
 {
 	ft_printf("Error\n\033[31m");
-	if(errnum == 0 && message != NULL)
+	if (errnum == 0 && message != NULL)
 		perror(message);
 	else if (errnum > 0)
 		perror(strerror(errnum));
 	else
 		perror(strerror(26));
 	ft_printf("\033[0m");
-	return(1);
+	return (1);
 }

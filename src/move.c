@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vantonie <vantonie@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/08 21:29:48 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/11/11 15:02:50 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/11/15 23:04:33 by vantonie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int		verify_move(t_module *module, char verify)
+static int	verify_move(t_module *module, char verify)
 {
-	if(verify == '0')
+	if (verify == '0')
 		return (0);
-	if(verify == '1')
+	if (verify == '1')
 		return (1);
-	if(verify == 'C')
+	if (verify == 'C')
 	{
 		module->coin->amount_taken = module->coin->amount_taken + 1;
-		return(0);
+		return (0);
 	}
-	if(verify == 'E')
+	if (verify == 'E')
 	{
 		if (module->coin->amount == 0)
-			return(2);
+			return (2);
 		else
-			return(1);
+			return (1);
 	}
 	else
 		return (3);
@@ -45,7 +45,7 @@ void	move(t_module *module, int x, int y, int eye)
 		module->player->player_eye = eye;
 		module->map->map[y][x] = 'P';
 		module->map->map[module->player->player_y]
-			[module->player->player_x] = '0';
+		[module->player->player_x] = '0';
 		print_map(module);
 	}
 	else if (res == 1)

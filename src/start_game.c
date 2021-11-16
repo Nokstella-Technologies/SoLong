@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   start_game.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vantonie <vantonie@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:53 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/11/12 15:08:21 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/11/15 23:02:13 by vantonie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	*img_initalize(char *img,void *mlx, t_sprite *sprite)
+static void	*img_initalize(char *img, void *mlx, t_sprite *sprite)
 {
 	void	*img_ptr;
 
@@ -49,12 +49,14 @@ int	start_game(t_module *module)
 	module->coin = malloc(1 * sizeof(t_coin));
 	module->sprite = malloc(6 * sizeof(t_sprite));
 	module->end_game = FALSE;
-	if (!module->sprite || !module->vars || !module->player|| !module->coin)
+	if (!module->sprite || !module->vars || !module->player || !module->coin)
 		return (error(14, NULL));
 	module->vars->mlx = mlx_init();
 	if (module->vars->mlx == NULL)
 		return (error(0, "It is not possible to start the game!"));
-	module->vars->win = mlx_new_window(module->vars->mlx, module->map->width * SPRITE_SIZE, module->map->height * SPRITE_SIZE, "so_long");
+	module->vars->win = mlx_new_window(module->vars->mlx,
+			module->map->width * SPRITE_SIZE,
+			module->map->height * SPRITE_SIZE, "so_long");
 	if (module->vars->win == NULL)
 		return (error(0, "It is not possible to open the window of the game!"));
 	if (load_sprites(module->vars, module->sprite) == 1)
@@ -63,5 +65,5 @@ int	start_game(t_module *module)
 	module->player->player_step = 0;
 	if (print_map(module) == 1)
 		return (1);
-	return(0);
+	return (0);
 }
