@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 14:37:15 by luizz             #+#    #+#             */
-/*   Updated: 2021/11/12 15:00:26 by llima-ce         ###   ########.fr       */
+/*   Created: 2021/11/03 14:37:15 by llima-ce          #+#    #+#             */
+/*   Updated: 2021/11/21 15:32:10 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,26 @@ static void	coin_print(t_module *module)
 	put_img(module, module->sprite->collect);
 }
 
+static void	enemines_print(t_module *module)
+{
+	int	col;
+	int	row;
+
+	col = module->map->col - module->player->player_x;
+	row = module->map->row - module->player->player_y;
+	if (col < row)
+	{
+		if(module->map->col <= module->player->player_x)
+			put_img(module, module->sprite->enemies[0]);
+		else
+			put_img(module, module->sprite->enemies[3]);
+	}
+	else
+		if(module->map->col <= module->player->player_x)
+			put_img(module, module->sprite->enemies[2]);
+		else
+			put_img(module, module->sprite->enemies[1]);;
+}
 
 static int	choose_sprite(char *line, t_module *module)
 {
@@ -47,7 +67,7 @@ static int	choose_sprite(char *line, t_module *module)
 	else if (line[module->map->col] == 'P')
 		position_player(module);
 	else if (line[module->map->col] == 'J')
-		put_img(module, module->sprite->enemies[0]);
+		enemines_print(module);
 	else
 		return (1);
 	return (0);

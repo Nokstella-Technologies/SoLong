@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:45:38 by prafael-          #+#    #+#             */
-/*   Updated: 2021/11/12 15:21:20 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:09:09 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,5 @@ int	error(int errnum, char *message)
 	else
 		perror(strerror(26));
 	ft_printf("\033[0m");
-	return(1);
+	return(-1);
 }

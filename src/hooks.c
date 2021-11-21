@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 17:47:39 by llima-ce          #+#    #+#             */
-/*   Updated: 2021/11/12 15:40:43 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/11/21 15:10:52 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,10 @@ static int resume_game(t_module *module)
 	return(0);
 }
 
-// static int	move_eneminies(t_module *module)
-// {
-	
-// }
-
 void	hook(t_module *module)
 {
 	mlx_key_hook(module->vars->win, &key_hook, module);
 	mlx_loop_hook(module->vars->mlx,&print_steps, module);
 	mlx_hook(module->vars->win, 17, 0, &close_all, module);
 	mlx_hook(module->vars->win, 9, 1L<<21, &resume_game, module);
-	// mlx_hook(module->vars->win, 45, 0 , &move_eneminies, module);
 }
