@@ -6,7 +6,7 @@
 /*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 15:43:58 by prafael-          #+#    #+#             */
-/*   Updated: 2021/11/12 15:51:23 by llima-ce         ###   ########.fr       */
+/*   Updated: 2021/11/21 16:15:50 by llima-ce         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <fcntl.h>
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
-# include <string.h>
+
 
 # define GROUND "./assets/sprites/luiz/0.xpm"
 # define WALL "./assets/sprites/luiz/1.xpm"
